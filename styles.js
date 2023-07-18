@@ -37,15 +37,13 @@ export const styles = StyleSheet.create({
   vitrineItemContainer: {
     width: 200,
     height: "100%",
-    backgroundColor: "#f2f2f2",
-    borderRadius: 10,
     marginHorizontal: 10,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   vitrineItemImage: {
     width: 180,
-    height: "50%",
+    height: 220,
     borderRadius: 10,
     marginBottom: 10,
     marginTop: 10,
@@ -99,7 +97,7 @@ export const styles = StyleSheet.create({
   },
   imageAbout: {
     width: "100%",
-    height: 200,
+    height: 280,
     borderRadius: 10,
     marginBottom: 20,
   },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styles } from "./styles";
-import { FlatList, Text, View, Image, TouchableOpacity, TextInput, RefreshControl } from "react-native";
+import { ScrollView, Text, View, Image, TouchableOpacity, TextInput, RefreshControl, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -32,7 +32,7 @@ const Home = () => {
   const LogoTitle = () => {
     return (
       <View style={styles.logo}>
-        <Text style={styles.logoText}>HA BURAYA BUNLAR HABERDUR</Text>
+        <Text style={styles.logoText}>Taru News</Text>
       </View>
     );
   };
@@ -106,13 +106,29 @@ const Home = () => {
           </TouchableOpacity>
         )}
       </View>
-      <FlatList
-        data={filteredFeed.slice(0, 10)}
-        keyExtractor={(item) => item.title}
-        renderItem={renderVitrineItem}
+      <ScrollView
         horizontal
-        showsHorizontalScrollIndicator={false}
-      />
+        showsHorizontalScrollIndicator={true}
+        pagingEnabled
+        contentContainerStyle={styles.vitrineContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={refreshFeed} />
+        }
+      >
+        {filteredFeed.slice(0, 10).map((item) => (
+          <TouchableOpacity key={item.title} onPress={() => handleItemPress(item)}>
+            <View style={styles.vitrineItemContainer}>
+              <Image style={styles.vitrineItemImage} source={{ uri: item.urlToImage }} />
+              <View style={styles.vitrineItemTextContainer}>
+                <Text style={styles.vitrineItemTitle}>{item.title}</Text>
+                <Text style={styles.vitrineItemDescription} numberOfLines={10}>
+                  {item.description}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
       <FlatList
         data={filteredFeed.slice(10)}
         keyExtractor={(item) => item.title}
